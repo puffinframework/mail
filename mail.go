@@ -10,3 +10,10 @@ type mailConfig struct {
 		Password string
 	}
 }
+
+type mailServiceImpl struct {
+}
+
+func SendMail(to []string, body string) error {
+	return nil
+}
