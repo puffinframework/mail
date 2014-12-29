@@ -1,30 +1,10 @@
 package mail
 
-import (
-	"github.com/puffinframework/config"
-)
-
-type MailService interface {
-	SendMail(to []string, body string) error
-}
-
-type mailConfig struct {
+type MailConfig struct {
 	SmtpServer struct {
+		Host     string
+		Port     int
 		User     string
 		Password string
 	}
-}
-
-type mailServiceImpl struct {
-}
-
-func NewMailService() MailService {
-	cfg := &mailConfig{}
-	config.MustReadConfig(cfg)
-
-	return &mailServiceImpl{}
-}
-
-func (self *mailServiceImpl) SendMail(to []string, body string) error {
-	return nil
 }
