@@ -29,9 +29,9 @@ func TestSendMail(t *testing.T) {
 	e := email.NewEmail()
 	e.From = cfg.SMTP.Login
 	e.To = []string{"dario.freire@gmail.com"}
-	e.Subject = "Awesome Subject"
-	e.Text = []byte("Text Body is, of course, supported!")
-	e.HTML = []byte("<h1>Fancy HTML is supported, too!</h1>")
+	e.Subject = "Test Subject"
+	e.Text = []byte("Test body text.")
+	e.HTML = []byte("Test <i>body</i> <b>html</b>.")
 
 	addr := strings.Join([]string{cfg.SMTP.Server, strconv.Itoa(cfg.SMTP.Port)}, ":")
 	auth := smtp.PlainAuth("", cfg.SMTP.Login, cfg.SMTP.Password, cfg.SMTP.Server)
