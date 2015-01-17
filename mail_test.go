@@ -13,10 +13,8 @@ import (
 
 func TestSendMail(t *testing.T) {
 	os.Setenv(config.ENV_VAR_NAME, config.MODE_TEST)
-	var cfg mail.MailServiceConfig
-	config.MustReadConfig(&cfg)
 
-	ms := mail.NewMailService(cfg)
+	ms := mail.NewMailService()
 
 	e := email.NewEmail()
 	e.From = "puffinframework@mailinator.com"

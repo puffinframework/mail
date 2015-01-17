@@ -6,9 +6,10 @@ import (
 	"strings"
 
 	"github.com/jordan-wright/email"
+	"github.com/puffinframework/config"
 )
 
-type MailServiceConfig struct {
+type mailServiceConfig struct {
 	SMTP struct {
 		Server   string
 		Port     int
@@ -26,7 +27,10 @@ type implMailService struct {
 	smtpAuth smtp.Auth
 }
 
-func NewMailService(cfg MailServiceConfig) MailService {
+func NewMailService() MailService {
+	cfg := &mailServiceConfig{}
+	config.MustReadConfig(cfg)
+
 	return &implMailService{
 		smtpAddr: strings.Join([]string{cfg.SMTP.Server, strconv.Itoa(cfg.SMTP.Port)}, ":"),
 		smtpAuth: smtp.PlainAuth("", cfg.SMTP.Login, cfg.SMTP.Password, cfg.SMTP.Server),
