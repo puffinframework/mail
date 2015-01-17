@@ -1,10 +1,7 @@
 package mail_test
 
 import (
-	"net/smtp"
 	"os"
-	"strconv"
-	"strings"
 	"testing"
 	"time"
 
@@ -16,19 +13,16 @@ import (
 
 func TestSendMail(t *testing.T) {
 	os.Setenv(config.ENV_VAR_NAME, config.MODE_TEST)
-	var cfg mail.MailConfig
+	var cfg mail.MailServiceConfig
 	config.MustReadConfig(&cfg)
 
-	now := time.Now().String()
+	ms := mail.NewMailService(cfg)
 
 	e := email.NewEmail()
 	e.From = cfg.SMTP.Login
 	e.To = []string{"dario.freire@gmail.com"}
 	e.Subject = "Test Subject"
-	e.Text = []byte(now)
-	e.HTML = []byte(now)
+	e.HTML = []byte(time.Now().String())
 
-	addr := strings.Join([]string{cfg.SMTP.Server, strconv.Itoa(cfg.SMTP.Port)}, ":")
-	auth := smtp.PlainAuth("", cfg.SMTP.Login, cfg.SMTP.Password, cfg.SMTP.Server)
-	assert.Nil(t, e.Send(addr, auth))
+	assert.Nil(t, ms.Send(e))
 }
