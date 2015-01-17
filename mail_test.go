@@ -19,7 +19,7 @@ func TestSendMail(t *testing.T) {
 	ms := mail.NewMailService(cfg)
 
 	e := email.NewEmail()
-	e.From = cfg.SMTP.Login
+	e.From = "dario.freire@gmail.com"
 	e.To = []string{"dario.freire@gmail.com"}
 	e.Subject = "Test Subject"
 	e.HTML = []byte(time.Now().String())
