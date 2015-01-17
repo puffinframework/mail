@@ -1,10 +1,10 @@
 package mail
 
 type MailConfig struct {
-	SmtpServer struct {
-		Host     string
+	SMTP struct {
+		Server   string
 		Port     int
-		User     string
+		Login    string
 		Password string
 	}
 }

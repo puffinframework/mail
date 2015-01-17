@@ -2,36 +2,31 @@ package mail_test
 
 import (
 	"net/smtp"
-	"strings"
-	"strconv"
 	"os"
+	"strconv"
+	"strings"
 	"testing"
+	"time"
 
 	"github.com/jordan-wright/email"
 	"github.com/puffinframework/config"
+	"github.com/puffinframework/mail"
 	"github.com/stretchr/testify/assert"
 )
 
-type mailConfig struct {
-	SMTP struct {
-		Server   string
-		Port     int
-		Login    string
-		Password string
-	}
-}
-
 func TestSendMail(t *testing.T) {
 	os.Setenv(config.ENV_VAR_NAME, config.MODE_TEST)
-	var cfg mailConfig
+	var cfg mail.MailConfig
 	config.MustReadConfig(&cfg)
+
+	now := time.Now().String()
 
 	e := email.NewEmail()
 	e.From = cfg.SMTP.Login
 	e.To = []string{"dario.freire@gmail.com"}
 	e.Subject = "Test Subject"
-	e.Text = []byte("Test body text.")
-	e.HTML = []byte("Test <i>body</i> <b>html</b>.")
+	e.Text = []byte(now)
+	e.HTML = []byte(now)
 
 	addr := strings.Join([]string{cfg.SMTP.Server, strconv.Itoa(cfg.SMTP.Port)}, ":")
 	auth := smtp.PlainAuth("", cfg.SMTP.Login, cfg.SMTP.Password, cfg.SMTP.Server)
