@@ -19,8 +19,8 @@ func TestSendMail(t *testing.T) {
 	ms := mail.NewMailService(cfg)
 
 	e := email.NewEmail()
-	e.From = "dario.freire@gmail.com"
-	e.To = []string{"dario.freire@gmail.com"}
+	e.From = "puffinframework@mailinator.com"
+	e.To = []string{"puffinframework@mailinator.com"}
 	e.Subject = "Test Subject"
 	e.HTML = []byte(time.Now().String())
 
